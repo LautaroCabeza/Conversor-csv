@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\SimConnectExample\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\JUAN{\\Documents\\GitHub\\AVIS\\SimConnectExample\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\SimConnectExample\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\JUAN{\\Documents\\GitHub\\AVIS\\SimConnectExample\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\SimConnectExample\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\JUAN{\\Documents\\GitHub\\AVIS\\SimConnectExample\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\SimConnectExample\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "C:\\Users\\JUAN{\\Documents\\GitHub\\AVIS\\SimConnectExample\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\JUAN{\\.nuget\\packages\\",
-        "outputPath": "C:\\SimConnectExample\\WebApplication1\\obj\\",
+        "outputPath": "C:\\Users\\JUAN{\\Documents\\GitHub\\AVIS\\SimConnectExample\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JUAN{\\AppData\\Roaming\\NuGet\\NuGet.Config"
