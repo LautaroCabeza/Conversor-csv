@@ -1,39 +1,37 @@
-import sys
-import pandas as pd
-import os
+import csv
 import time
 
-if len(sys.argv) < 2:
-    print("Uso: python lector.py <archivo.csv>")
-    sys.exit(1)
+ruta_archivo = 'datos.csv'
 
-archivo = sys.argv[1]
+try:
+    with open(ruta_archivo, newline='', mode='r') as archivo:
+        lector = csv.reader(archivo)
+        
+        # Leer encabezado y verificar columnas
+        encabezado = next(lector)
+        if 'time' not in encabezado or 'PLANE_PITCH_DEGREES' not in encabezado:
+            print("❌ Encabezado inválido. Se esperaban las columnas 'time' y 'PLANE_PITCH_DEGREES'.")
+        else:
+            # Índices seguros por nombre
+            i_time = encabezado.index('time')
+            i_pitch = encabezado.index('PLANE_PITCH_DEGREES')
 
-# Mostrar la ruta absoluta para verificar
-ruta_completa = os.path.abspath(archivo)
-print(f"Intentando abrir: {ruta_completa}")
+            # Bucle para leer líneas continuamente
+            while True:
+                fila = next(lector, None)
+                if fila is None:
+                    time.sleep(0.5)  # Esperar medio segundo para no sobrecargar el procesamiento
+                    continue  # Esperar a que lleguen nuevas filas
 
-# Función para convertir radianes a grados
-def convertir_a_grados(radianes):
-    return radianes * 180 / 3.141592653589793
+                if len(fila) < 2:
+                    print(f"❌ Fila malformada o incompleta: {fila}")
+                    continue
 
-while True:
-    try:
-        # Cargar el archivo CSV
-        df = pd.read_csv(archivo)
-        
-        # Realizar la conversión de radianes a grados en la columna correspondiente
-        if 'PLANE_PITCH_DEGREES*' in df.columns:
-            df['PLANE_PITCH_DEGREES'] = df['PLANE_PITCH_DEGREES*'].apply(convertir_a_grados)
-        
-        # Imprimir solo las últimas 5 filas (puedes ajustarlo a tu preferencia)
-        print("\nÚltimos 5 registros:")
-        print(df.tail(5))
-        
-        print("✅ Conversión de radianes a grados realizada correctamente")
-        
-    except Exception as e_csv:
-        print("CSV error:", e_csv)
-    
-    # Esperar 5 segundos antes de la siguiente actualización (puedes ajustar el tiempo)
-    time.sleep(5)
+                try:
+                    timestamp = float(fila[i_time])
+                    pitch = float(fila[i_pitch])
+                    print(f"⏱ {timestamp:.2f} | 🎯 Pitch°: {pitch:.6f} °")
+                except ValueError:
+                    print(f"❌ Error de conversión en fila: {fila}")
+except FileNotFoundError:
+    print(f"❌ No se encontró el archivo en la ruta: {ruta_archivo}")
