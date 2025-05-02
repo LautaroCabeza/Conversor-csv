@@ -1,5 +1,6 @@
 import csv
 import time
+import math
 
 ruta_archivo = 'datos.csv'
 
@@ -12,16 +13,14 @@ try:
         if 'time' not in encabezado or 'PLANE_PITCH_DEGREES' not in encabezado:
             print("❌ Encabezado inválido. Se esperaban las columnas 'time' y 'PLANE_PITCH_DEGREES'.")
         else:
-            # Índices seguros por nombre
             i_time = encabezado.index('time')
             i_pitch = encabezado.index('PLANE_PITCH_DEGREES')
 
-            # Bucle para leer líneas continuamente
             while True:
                 fila = next(lector, None)
                 if fila is None:
-                    time.sleep(0.5)  # Esperar medio segundo para no sobrecargar el procesamiento
-                    continue  # Esperar a que lleguen nuevas filas
+                    time.sleep(0.5)
+                    continue
 
                 if len(fila) < 2:
                     print(f"❌ Fila malformada o incompleta: {fila}")
@@ -29,8 +28,9 @@ try:
 
                 try:
                     timestamp = float(fila[i_time])
-                    pitch = float(fila[i_pitch])
-                    print(f"⏱ {timestamp:.2f} | 🎯 Pitch°: {pitch:.6f} °")
+                    pitch_rad = float(fila[i_pitch])
+                    pitch_deg = math.degrees(pitch_rad)
+                    print(f"⏱ {timestamp:.2f} | 🎯 Pitch: {pitch_deg:.2f}°")
                 except ValueError:
                     print(f"❌ Error de conversión en fila: {fila}")
 except FileNotFoundError:
